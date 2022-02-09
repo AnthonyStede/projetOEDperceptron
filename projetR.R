@@ -21,14 +21,13 @@ process <- function() {
   perceptron = percep(data, eta = 0.1, threshold = 1e-5 ) 
   print(perceptron)
   
-  # Set new column values to appropriate colours
+  # Définir les nouvelles valeurs de colonne aux couleurs appropriées
   data$Colour[data$Species==0]="red"
   data$Colour[data$Species==1]="blue"
-  # Plot all points at once, using newly generated colours
-  #plot(data$col_name1,data$col_name2, ylim=c(0,5), col=data$Colour, ylim=c(0,10))
+  # Tracer tous les points en même temps, en utilisant les couleurs nouvellement générées
   
   plot(data[, c(1)], data[, c(2)], xlab="x1", ylab="x2", col=data$Colour )
-  print(data)
+  #print(data)
   abline(a = -1.0*perceptron[3]/perceptron[2], b = -1.0*perceptron[1]/perceptron[2], col='dark green', lwd=3, lty=2)
   
   
@@ -55,17 +54,17 @@ percep <- function( data, eta = 0.1, threshold = 1e-5 ){
   
   # Cette boucle doit avoir un critère d’arrêt qui définira quand le processus d’apprentissage doit s’arrêter
   # Pour mesurer la performance de l’algorithme dans la tâche de classification, nous observons la valeur de l’erreur, il semble donc raisonnable de l’utiliser comme critère d’arrêt
-  # pour être plus précis, nous allons utiliser la valeur quadratique moyenne d’erreur ( mse ) . Lorsque l’algorithme atteint des valeurs faibles de mse, nous serons satisfaits de ses performances.
+  # utiliser la valeur quadratique moyenne d’erreur ( eqm ) . Lorsque l’algorithme atteint des valeurs faibles de mse, nous serons satisfaits de ses performances.
   while( eqm > threshold ){
     eqm = 0
     for( i in 1:nrow( dt ) ){
-      # Add bias and compute multiplications
+      # ajouter le bias et calculer la multiplication
       z = c( dt[ i, 1:num.features ], 1 ) %*% weights
       
       # fonction d'activation
       a = fonction_activation( z )
       
-      # Compute eqm
+      # calculer eqm
       error = ( a - dt[ i, target ] )
       eqm = eqm + error^2
       cat( paste( "Mean square error = ", eqm, "\n" ) )
