@@ -1,4 +1,4 @@
-setwd("/home/yanisdev/R/devoir/projetOEDperceptron/")      # Change working directory
+#setwd("/home/yanisdev/R/devoir/projetOEDperceptron/")      # Change working directory
 args = commandArgs(trailingOnly=TRUE)
 
 if (length(args)==0) {
